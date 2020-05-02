@@ -1,68 +1,122 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Testable Todo app
 
-## Available Scripts
+## To setup test 
 
-In the project directory, you can run:
+### 1 setup deps
+>  "enzyme"
 
-### `yarn start`
+>  "jest-enzyme"
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+>  "enzyme-adapter-react-16" // to react +16
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+>  "check-prop-types" // to props validation 
 
-### `yarn test`
+>  "enzyme-to-json" // to snapshot testing to props validation
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 2 Add configs to setupTests 
+> https://www.npmjs.com/package/enzyme-adapter-react-16
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+import Enzyme from 'enzyme';
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+import EnzymeAdapter from 'enzyme-adapter-react-16';
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Enzyme.configure({
+  adapter: new EnzymeAdapter(),
+});
 
-### `yarn eject`
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 2.1 add .babelrc to remove test-data from dom
+> https://www.npmjs.com/package/babel-plugin-react-remove-properties
+```
+    {
+      "env": {
+        "production": {
+          "plugins": [
+            "react-remove-properties", {
+              "properties": ["data-test"]
+            }
+        }
+      }
+    }
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 3 Create `Component.test` file and run
+> yarn test --watch
+#### 3.1 import deps
+```
+import React from 'react';
+import { shallow } from 'enzyme';
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+import TodoForm from './TodoForm';
+```
+ 
+#### 3.3 Create setup function
+```
+const setup = (props) => shallow(
+  <TodoForm {...props} {...requiredProps} />);
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
 
-## Learn More
+#### 3.4 Create First test 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```$xslt
+describe("<TodoForm /> - render", () => {
+  it("should render without error", () => {
+    const wrapper = setup();
+    expect(wrapper.length).not.toBe(0);
+  });
+});
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### 3.5 Props validation
+```$xslt
+  import checkPropTypes from 'check-prop-types';
+  it("should not throw warning with expected props", () => {
+    const props = {
+      test: 'test'
+    };
+    // todo move to utils
+    const propError = checkPropTypes(
+      TodoForm.propTypes,
+      props,
+      'prop',
+      TodoForm.name);
+    expect(propError).toBeUndefined();
+  })
+```
 
-### Code Splitting
+#### 3.6 Snapshot validation
+> https://www.npmjs.com/package/enzyme-to-json
+```$xslt
+  import toJson from 'enzyme-to-json';
+  
+  it("should render without error", () => {
+    const wrapper = setup();
+    expect(toJson(wrapper)).toMatchSnapshot();
+  });
+```
+> then check ./__snapshots__/*
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+#### 3.7 Dom checking
+```$xslt
+const findById = (component, id) => component.find(`[data-test="${id}"]`);
 
-### Analyzing the Bundle Size
+describe("<TodoForm /> - components", () => {
+  it("should contains form, input, button", () => {
+    const wrapper = setup();
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+    const form = findById(wrapper, 'form');
+    const input = findById(wrapper, 'input');
+    const button = findById(wrapper, 'button');
 
-### Making a Progressive Web App
+    expect(form.length).not.toBe(0);
+    expect(input.length).not.toBe(0);
+    expect(button.length).not.toBe(0);
+  })
+});
+```
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+#### 3.7 mock functions

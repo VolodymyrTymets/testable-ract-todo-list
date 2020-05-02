@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TodoForm /> - render should render without error 1`] = `
+<form
+  className="todo-form"
+  data-test="form"
+>
+  <input
+    data-test="input"
+    type="text"
+  />
+  <buttom
+    data-test="button"
+    type="submit"
+  >
+    Submit
+  </buttom>
+</form>
+`;
