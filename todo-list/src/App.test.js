@@ -1,6 +1,14 @@
 import React from 'react';
+import { shallow } from 'enzyme';
+
 import App from './App';
 
-test('renders learn react link', () => {
- expect(true).toBe(true);
+const setup = () => shallow(<App />);
+
+describe("<App /> - render", () => {
+ it("should render without error", () => {
+  const wrapper = setup();
+  expect(wrapper.length).not.toBe(0);
+ });
 });
+

@@ -16,10 +16,17 @@ const ToDoForm = ({ onAddTag }) => {
   };
 
   return (
-    <form className={styles['todo-form']} data-test="form" onSubmit={onSubmit}>
-      <input type="text" data-test="input" onChange={onChange} />
-      <button type="submit" data-test="button" >Submit</button>
-    </form>
+    <div className={`row ${styles['todo-form']}`}>
+      <div className="col-lg-6">
+      <form  data-test="form" onSubmit={onSubmit}>
+        <div className="form-group">
+          <label htmlFor="exampleInputEmail1">What to do?:</label>
+          <input data-test="input" type="text" className="form-control" onChange={onChange} />
+        </div>
+        <button className="btn btn-primary" type="submit" data-test="button" >Submit</button>
+      </form>
+      </div>
+    </div>
   );
 };
 

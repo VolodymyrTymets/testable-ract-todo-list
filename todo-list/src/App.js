@@ -10,8 +10,7 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <h1>To do </h1>
+    <div className="container-fluid">
       <TodoForm onAddTag={onAddTag} />
       <TotdoList list={todos} />
     </div>

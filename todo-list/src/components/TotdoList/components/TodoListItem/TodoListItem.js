@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const TodoListItem = ({ todo }) => {
   return (
-    <li data-test="list-item" >{todo}</li>
+    <li data-test="list-item" className="list-group-item" >{todo}</li>
   );
 };
 
