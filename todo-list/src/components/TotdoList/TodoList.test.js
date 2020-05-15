@@ -1,6 +1,7 @@
 import React from 'react';
 import checkPropTypes from 'check-prop-types';
 import { shallow } from 'enzyme';
+import toJson from 'enzyme-to-json';
 
 import TodoList from './TodoList';
 
@@ -16,6 +17,8 @@ describe("<TodoListItem /> - render", () => {
     const wrapper = setup();
     // if has not snapshots
     expect(wrapper.length).not.toBe(0);
+    // if has snapshots
+    //expect(toJson(wrapper)).toMatchSnapshot();
   });
   it("should not throw warning with expected props", () => {
     const props = {
@@ -40,12 +43,14 @@ describe("<TodoForm /> - components", () => {
     const wrapper = setup();
     const list = findById(wrapper, 'list');
     expect(list.length).not.toBe(0);
-  })
+  });
   it("should contains list on ListItems", () => {
     const testList = ['test', 'test2', 'test3'];
     const wrapper = setup({ list: testList });
     const list = findById(wrapper, 'list');
+    const listItem = wrapper.find('TodoListItem');
     expect(list.children().length).toEqual(testList.length);
+    expect(listItem).not.toBe(0);
   })
 });
 
