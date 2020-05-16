@@ -1,12 +1,13 @@
 // Require the framework and instantiate it
 const fastify = require('fastify')({
   logger: true
-})
+});
 
-// Declare a route
-fastify.get('/api/v1/', function (request, reply) {
-  reply.send({ hello: 'world' })
-})
+fastify.register(require('./plugins/mondodb-connections'), {
+  url: process.env.MONGODB_URI
+});
+
+require('./routers')(fastify);
 
 // Run the server!
 fastify.listen(3000, function (err, address) {
