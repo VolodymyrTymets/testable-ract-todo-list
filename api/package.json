@@ -12,6 +12,7 @@
   "dependencies": {
     "fastify": "^2.14.1",
     "fastify-plugin": "^1.6.1",
+    "fastify-swagger": "^2.5.1",
     "mongodb": "^3.5.7"
   },
   "devDependencies": {

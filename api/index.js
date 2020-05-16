@@ -3,6 +3,7 @@ const fastify = require('fastify')({
   logger: true
 });
 
+fastify.register(require('fastify-swagger'), require('./plugins/swagger'));
 fastify.register(require('./plugins/mondodb-connections'), {
   url: process.env.MONGODB_URI
 });
