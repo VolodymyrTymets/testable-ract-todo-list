@@ -18,4 +18,4 @@ git subtree split -P api -b heroku-deploy
 git push -f heroku heroku-deploy:master
 git branch -D heroku-deploy
 
-git checkout master
+##git checkout master
