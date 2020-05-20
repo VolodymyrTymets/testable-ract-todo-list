@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=production node ./index.js",
+    "start": "node ./index.js",
     "local": "MONGODB_URI=mongodb://localhost:27017/todo nodemon ./index.js ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
