@@ -5,7 +5,9 @@ const fastify = require('fastify')({
 
 fastify.register(require('fastify-swagger'), require('./plugins/swagger'));
 fastify.register(require('./plugins/mondodb-connections'), {
-  url: process.env.MONGODB_URI
+  url: process.env.MONGODB_URI,
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
 require('./routers')(fastify);
