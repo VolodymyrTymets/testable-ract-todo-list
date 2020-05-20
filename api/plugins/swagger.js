@@ -10,7 +10,7 @@ module.exports = {
       url: 'https://swagger.io',
       description: 'Find more info here'
     },
-    host: 'localhost:3000',
+    host: process.env.HOST || 'localhost:3000',
     schemes: ['http'],
     consumes: ['application/json'],
     produces: ['application/json'],
