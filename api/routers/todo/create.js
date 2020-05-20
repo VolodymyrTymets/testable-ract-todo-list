@@ -4,7 +4,7 @@ const create = (fastify, options) => async (request, reply) => {
   if(!title) {
     throw new Error('Tittle is not defined');
   }
-  if(!title.length < 3) {
+  if(title.length < 3) {
     throw new Error('Tittle length is to small. Should be at least 3 character');
   }
 
