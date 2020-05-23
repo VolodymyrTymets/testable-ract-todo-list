@@ -11,7 +11,7 @@ module.exports = {
       description: 'Find more info here'
     },
     host: process.env.HOST || 'localhost:3000',
-    schemes: ['http'],
+    schemes: ['https'],
     consumes: ['application/json'],
     produces: ['application/json'],
     tags: [
