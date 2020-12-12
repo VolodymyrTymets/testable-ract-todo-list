@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node ./index.js",
     "local": "MONGODB_URI=mongodb://localhost:27017/todo nodemon ./index.js ",
+    "remote": "MONGODB_URI='mongodb+srv://admin:7DBSLhiikKxQigdj@cluster0.uqeei.mongodb.net/test-todo?retryWrites=true&w=majority' nodemon ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
