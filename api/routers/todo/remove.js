@@ -1,5 +1,26 @@
 const ObjectID = require('mongodb').ObjectID;
 
+const schema = {
+  description: 'Remove Todo',
+  params: {
+    type: 'object',
+    properties: {
+      id: {
+        _id: 'string',
+      }
+    }
+  },
+  response: {
+    201: {
+      description: 'Successful response',
+      type: 'object',
+      properties: {
+        _id: { type: 'string' },
+      }
+    }
+  },
+};
+
 const remove = (fastify, options) => async (request, reply) => {
   const { id } = request.params;
   if(!id) {
@@ -10,4 +31,7 @@ const remove = (fastify, options) => async (request, reply) => {
   return { id };
 };
 
-module.exports = remove;
+module.exports = {
+  router: remove,
+  schema,
+};

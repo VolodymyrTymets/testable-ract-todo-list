@@ -1,3 +1,26 @@
+const schema = {
+  description: 'Create Todo',
+  body: {
+    type: 'object',
+    properties: {
+      title: { type: 'string' },
+      date: { type: 'string', format: 'date' },
+    }
+  },
+  response: {
+    201: {
+      description: 'Successful response',
+      type: 'object',
+      properties: {
+        _id: { type: 'string' },
+        title: { type: 'string' },
+        date: { type: 'string', format: 'date'  },
+        completed: { type: 'boolean' },
+      }
+    }
+  },
+};
+
 const create = (fastify, options) => async (request, reply) => {
   const { title, date = new Date } = request.body;
   const Todos = fastify.mongo.collection('todo');
@@ -16,6 +39,9 @@ const create = (fastify, options) => async (request, reply) => {
   });
   const newTodo = result.ops[0];
   return newTodo;
-}
+};
 
-module.exports = create;
+module.exports = {
+  router: create,
+  schema,
+};
