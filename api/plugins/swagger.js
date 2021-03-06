@@ -15,19 +15,30 @@ module.exports = {
     consumes: ['application/json'],
     produces: ['application/json'],
     tags: [
-      { name: 'user', description: 'User related end-points' },
-      { name: 'code', description: 'Code related end-points' }
+      { name: 'Todo', description: 'Todos related end-points' },
+      { name: 'Authentication', description: 'Authentication related end-points' }
     ],
     definitions: {
       User: {
         $id: 'User',
         type: 'object',
-        required: ['id', 'email'],
+        required: ['email', 'firstName', 'lastName'],
         properties: {
-          id: { type: 'string', format: 'uuid' },
+          _id: { type: 'string', format: 'uuid' },
           firstName: { type: 'string', nullable: true },
           lastName: { type: 'string', nullable: true },
           email: {type: 'string', format: 'email' }
+        }
+      },
+      Todo: {
+        $id: 'Todo',
+        type: 'object',
+        required: ['title', 'email'],
+        properties: {
+          _id: { type: 'string', format: 'uuid' },
+          title: { type: 'string' },
+          date: { type: 'string', format: 'date'  },
+          completed: { type: 'boolean' },
         }
       }
     },

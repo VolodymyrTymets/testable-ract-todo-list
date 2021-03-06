@@ -1,5 +1,6 @@
 const schema = {
   description: 'Create Todo',
+  tags: ['Todo'],
   body: {
     type: 'object',
     properties: {
