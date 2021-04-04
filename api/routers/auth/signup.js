@@ -63,7 +63,7 @@ const router = (fastify, options) => async (request, reply) => {
   });
   const newUser = result.ops[0];
 
-  const token = jwt.sign({ user: { _id: user._id } }, options.configs.JWT_SECRET);
+  const token = jwt.sign({ user: { _id: newUser._id } }, options.configs.JWT_SECRET);
 
   return { token, user: _.omit(newUser, 'hash') };
 };
