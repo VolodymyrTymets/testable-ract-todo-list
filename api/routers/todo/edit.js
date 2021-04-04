@@ -2,6 +2,7 @@ const ObjectID = require('mongodb').ObjectID;
 
 const schema = {
   description: 'Update Todo',
+  tags: ['Todo'],
   params: {
     type: 'object',
     properties: {

@@ -2,6 +2,7 @@ const { queryToObject } = require('../../utils/requests');
 
 const schema = {
   description: 'Get all todo ',
+  tags: ['Todo'],
   query: {
     limit: {
       type: 'integer',

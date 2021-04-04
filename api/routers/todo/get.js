@@ -2,6 +2,7 @@ const ObjectID = require('mongodb').ObjectID;
 
 const schema = {
   description: 'Get single todo',
+  tags: ['Todo'],
   response: {
     201: {
       description: 'Successful response',
